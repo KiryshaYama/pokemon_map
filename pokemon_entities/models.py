@@ -6,11 +6,6 @@ class Pokemon(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     title = models.CharField(max_length=200)
     image = models.ImageField(null=True, blank=True)
-    level = models.IntegerField()
-    health = models.IntegerField()
-    strength = models.IntegerField()
-    defence = models.IntegerField()
-    stamina = models.IntegerField()
 
 
     def __str__(self):
@@ -29,3 +24,8 @@ class PokemonEntity(models.Model):
     disappeared_at = models.DateTimeField(
         null=True,
         blank=True)
+    level = models.IntegerField()
+    health = models.IntegerField()
+    strength = models.IntegerField()
+    defence = models.IntegerField()
+    stamina = models.IntegerField()
