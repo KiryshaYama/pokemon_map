@@ -5,12 +5,15 @@ class Pokemon(models.Model):
     """Покемон"""
     id = models.AutoField(auto_created=True, primary_key=True)
     title = models.CharField(max_length=200)
-    image = models.ImageField(null=True)
+    image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return f'{self.title}'
 
 class PokemonEntity(models.Model):
     """Координаты покемона"""
-    Lat = models.FloatField(null=True)
-    Lon = models.FloatField(null=True)
+    pokemon = models.ForeignKey(
+        Pokemon,
+        on_delete=models.CASCADE)
+    lat = models.FloatField(null=True)
+    lon = models.FloatField(null=True)
