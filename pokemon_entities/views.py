@@ -74,6 +74,17 @@ def show_pokemon(request, pokemon_id):
             'pokemon_id': previous_evolution.id,
             'img_url': request.build_absolute_uri(previous_evolution.image.url) if previous_evolution.image else None
         }
+    try:
+        next_evolution = Pokemon.objects.get(previous_evolution=pokemon)
+        if next_evolution:
+            pokemon_json['next_evolution'] = {
+                'title_ru': next_evolution.title_ru,
+                'pokemon_id': next_evolution.id,
+                'img_url': request.build_absolute_uri(next_evolution.image.url) if next_evolution.image else None
+            }
+    except Pokemon.DoesNotExist:
+        pass
+
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
 
 
