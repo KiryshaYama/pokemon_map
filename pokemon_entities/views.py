@@ -43,7 +43,8 @@ def show_all_pokemons(request):
     for pokemon in pokemons:
         pokemons_on_page.append({
             'pokemon_id': pokemon.id,
-            'img_url': request.build_absolute_uri(pokemon.image.url) if pokemon.image else None,
+            'img_url': request.build_absolute_uri(
+                pokemon.image.url) if pokemon.image else None,
             'title_ru': pokemon.title_ru,
         })
 
@@ -65,14 +66,17 @@ def show_pokemon(request, pokemon_id):
         'title_en': pokemon.title_en,
         'title_jp': pokemon.title_jp,
         'description': pokemon.description,
-        'img_url': request.build_absolute_uri(pokemon.image.url) if pokemon.image else None
+        'img_url': request.build_absolute_uri(
+            pokemon.image.url) if pokemon.image else None
     }
     previous_evolution = pokemon.previous_evolution
     if previous_evolution:
         pokemon_json['previous_evolution'] = {
             'title_ru': previous_evolution.title_ru,
             'pokemon_id': previous_evolution.id,
-            'img_url': request.build_absolute_uri(previous_evolution.image.url) if previous_evolution.image else None
+            'img_url': request.build_absolute_uri(
+                previous_evolution.image.url) if previous_evolution.image
+            else None
         }
     try:
         next_evolution = Pokemon.objects.get(previous_evolution=pokemon)
@@ -80,13 +84,13 @@ def show_pokemon(request, pokemon_id):
             pokemon_json['next_evolution'] = {
                 'title_ru': next_evolution.title_ru,
                 'pokemon_id': next_evolution.id,
-                'img_url': request.build_absolute_uri(next_evolution.image.url) if next_evolution.image else None
+                'img_url': request.build_absolute_uri(
+                    next_evolution.image.url) if next_evolution.image else None
             }
     except Pokemon.DoesNotExist:
         pass
 
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-
 
     for pokemon_entity in PokemonEntity.objects.filter(pokemon=pokemon):
         add_pokemon(
