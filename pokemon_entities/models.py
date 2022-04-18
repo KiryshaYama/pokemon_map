@@ -6,6 +6,7 @@ class Pokemon(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True)
     title = models.CharField(max_length=200)
     image = models.ImageField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
 
 
     def __str__(self):
